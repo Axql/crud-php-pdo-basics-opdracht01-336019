@@ -1,0 +1,36 @@
+<?php
+
+include('config.php');
+
+// DSN staat voor data sourcename
+$dsn = "mysql:host=$dbHost;dbname=$dbName;charset=UTF8";
+
+try {
+    $pdo = new PDO($dsn, $dbUser, $dbPass);
+    echo "er is een verbinding met de database gemaakt";
+} catch(PDOException $e)
+{
+    echo "er is helaas geen verbinding met de DB";
+    echo $e ->getMessage();
+}
+
+ $sql = "INSERT INTO Persoon (Id 
+                                ,voornaam
+                                ,tussenvoegsel
+                                ,achternaam)
+        VALUES                  (NULL
+                                ,:voornaam
+                                ,:tussenvoegsel
+                                ,:lastname);";
+
+//maakt de query gereed met de prepare method 
+$statement = $pdo -> prepare($sql);
+
+$statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
+$statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
+$statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
+// vuur de query af op de databse
+$statement-> execute();
+
+//hiermee sturen wij automatisch door naar de pagina read.php
+header('location: read.php');
