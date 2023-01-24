@@ -35,12 +35,12 @@ $statement = $pdo -> prepare($sql);
 $statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
 $statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
 $statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
-$statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
-$statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
-$statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
-$statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
-$statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
-$statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
+$statement->bindValue(':telefoonNummer', $_POST['telefoonNummer'], PDO::PARAM_STR);
+$statement->bindValue(':Straatnaam', $_POST['Straatnaam'], PDO::PARAM_STR);
+$statement->bindValue(':HuisNummer', $_POST['HuisNummer'], PDO::PARAM_STR);
+$statement->bindValue(':Woonplaats', $_POST['Woonplaats'], PDO::PARAM_STR);
+$statement->bindValue(':Postcode', $_POST['Postcode'], PDO::PARAM_STR);
+$statement->bindValue(':Landnaam', $_POST['Landnaam'], PDO::PARAM_STR);
 // vuur de query af op de databse
 $statement-> execute();
 
