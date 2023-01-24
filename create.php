@@ -27,7 +27,13 @@ try {
         VALUES                  (NULL
                                 ,:voornaam
                                 ,:tussenvoegsel
-                                ,:lastname);";
+                                ,:lastname
+                                ,:telefoonNummer
+                                ,:Straatnaam
+                                ,:HuisNummer
+                                ,:Woonplaats
+                                ,:Postcode
+                                ,:Landnaam);";
 
 //maakt de query gereed met de prepare method 
 $statement = $pdo -> prepare($sql);

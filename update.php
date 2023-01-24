@@ -20,7 +20,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE Persoon
                 SET Voornaam = :Voornaam,
                     Tussenvoegsel = :Tussenvoegsel,
-                    Achternaam = :Achternaam
+                    Achternaam = :Achternaam,
+                    Voornaam = :telefoonNummer,
+                    Tussenvoegsel = :Straatnaam,
+                    Achternaam = :HuisNummer,
+                    Voornaam = :Woonplaats,
+                    Tussenvoegsel = :Postcode,
+                    Achternaam = :Landnaam
                 WHERE Id = :Id";
 
         // Roep de prepare-method aan van het PDO-object $pdo
@@ -69,15 +75,33 @@ $result = $statement->fetch(PDO::FETCH_OBJ);
 <body>
     <h1>PDO CRUD 1</h1>
 
-    <form action="update.php" method="post"> 
+    <form action="create.php" method="post"> 
           <label for="firstname">voornaam </label> <br> 
-          <input type="text" id="voornaam" name="voornaam" value="<?php echo $result->voornaam; ?>"><br>
+          <input type="text" id="voornaam" name="voornaam"> <br>
 
           <label for="infix">tussenvoegsel </label><br>
-          <input type="text" id="infix" name="infix" value="<?php echo $result->tussenvoegsel; ?>"><br>
+          <input type="text" id="infix" name="infix"> <br>
           
           <label for="lastname">achternaam </label><br> 
-          <input type="text" id="lastname" name="lastname" value="<?php echo $result->achternaam; ?>"> <br> 
+          <input type="text" id="lastname" name="lastname"> <br> 
+
+          <label for="telefoonNummer">telefoonNummer </label><br> 
+          <input type="text" id="telefoonNummer" name="telefoonNummer"> <br> 
+
+          <label for="Straatnaam">Straatnaam </label><br> 
+          <input type="text" id="Straatnaam" name="Straatnaam"> <br> 
+
+          <label for="HuisNummer">HuisNummer </label><br> 
+          <input type="text" id="HuisNummer" name="HuisNummer"> <br> 
+
+          <label for="Woonplaats">Woonplaats </label><br> 
+          <input type="text" id="Woonplaats" name="Woonplaats"> <br> 
+
+          <label for="Postcode">Postcode </label><br> 
+          <input type="text" id="Postcode" name="Postcode"> <br> 
+
+          <label for="Landnaam">Landnaam </label><br> 
+          <input type="text" id="Landnaam" name="Landnaam"> <br> 
           <br>
 
           <input type="hidden" name="Id" value="<?php echo $result->Id; ?>">

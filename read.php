@@ -21,7 +21,7 @@ catch(PDOException $e)
 }
 
 
-$sql = "SELECT voornaam,tussenvoegsel,achternaam, id FROM Persoon";
+$sql = "SELECT voornaam,tussenvoegsel,achternaam,TelefoonNummer,Straatnaam,huisnummer,woonplaats,postcode,Landnaam,id FROM Persoon";
 
 $statement = $pdo->prepare($sql);
 $statement->execute();
@@ -39,6 +39,12 @@ foreach($result as $info)
                 <td>$info->voornaam</td>
                 <td>$info->tussenvoegsel</td>
                 <td>$info->achternaam</td>
+                <td>$info->TelefoonNummer</td>
+                <td>$info->Straatnaam</td>
+                <td>$info->huisnummer</td>
+                <td>$info->woonplaats</td>
+                <td>$info->postcode</td>
+                <td>$info->Landnaam</td>
                 <td>
                 <a href='delete.php?Id=$info->id'>
                     <img src='img/b_drop.png' alt='cross'
@@ -59,6 +65,12 @@ foreach($result as $info)
         <th>Voornaam</th>
         <th>Tussenvoegsel</th>
         <th>Achternaam</th>
+        <th>TelefoonNummer</th>
+        <th>Straatnaam</th>
+        <th>huisnummer</th>
+        <th>woonplaats</th>
+        <th>postcode</th>
+        <th>Landnaam</th>
         <th></th>
     </thead>
     <tbody>
