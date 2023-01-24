@@ -20,7 +20,26 @@
           
           <label for="lastname">achternaam </label><br> 
           <input type="text" id="lastname" name="lastname"> <br> 
+
+          <label for="telefoonNummer">telefoonNummer </label><br> 
+          <input type="text" id="telefoonNummer" name="telefoonNummer"> <br> 
+
+          <label for="Straatnaam">Straatnaam </label><br> 
+          <input type="text" id="Straatnaam" name="Straatnaam"> <br> 
+
+          <label for="HuisNummer">HuisNummer </label><br> 
+          <input type="text" id="HuisNummer" name="HuisNummer"> <br> 
+
+          <label for="Woonplaats">Woonplaats </label><br> 
+          <input type="text" id="Woonplaats" name="Woonplaats"> <br> 
+
+          <label for="Postcode">Postcode </label><br> 
+          <input type="text" id="Postcode" name="Postcode"> <br> 
+
+          <label for="Landnaam">Landnaam </label><br> 
+          <input type="text" id="Landnaam" name="Landnaam"> <br> 
           <br>
+
           <input type="submit" value="Submit" class="button">
     </form>
 </body>

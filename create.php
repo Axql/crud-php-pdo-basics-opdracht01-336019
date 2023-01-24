@@ -17,7 +17,13 @@ try {
  $sql = "INSERT INTO Persoon (Id 
                                 ,voornaam
                                 ,tussenvoegsel
-                                ,achternaam)
+                                ,achternaam
+                                ,telefoonNummer
+                                ,Straatnaam
+                                ,HuisNummer
+                                ,Woonplaats
+                                ,Postcode
+                                ,Landnaam)
         VALUES                  (NULL
                                 ,:voornaam
                                 ,:tussenvoegsel
@@ -26,6 +32,12 @@ try {
 //maakt de query gereed met de prepare method 
 $statement = $pdo -> prepare($sql);
 
+$statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
+$statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
+$statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
+$statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
+$statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
+$statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
 $statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
 $statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
 $statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);

@@ -13,29 +13,43 @@ try{
 {
     $e->getMessage();
 }
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-if($_SERVER["REQUEST_METHOD"] == "POST")
-{
-    echo "er is op de knop gedrukt";
-    $sql = "UPDATE Persoon SET voornaam = :voornaam, 
-    tussenvoegsel = :tussenvoegsel,
-    achternaam = :achternaam 
-    where Id = :Id";
+    try {
+        // Maak een update query voor het updaten van een record
+        $sql = "UPDATE Persoon
+                SET Voornaam = :Voornaam,
+                    Tussenvoegsel = :Tussenvoegsel,
+                    Achternaam = :Achternaam
+                WHERE Id = :Id";
 
-    $statement = $pdo -> prepare($sql);
+        // Roep de prepare-method aan van het PDO-object $pdo
+        $statement = $pdo->prepare($sql);
 
-    $statement -> bindValue(':Id',$_POST['Id'],PDO::PARAM_INT);
-    $statement -> bindValue(':voornaam',$_POST['voornaam'],PDO::PARAM_STR);
-    $statement -> bindValue(':achternaam',$_POST['lastname'],PDO::PARAM_STR);
-    $statement -> bindValue(':tussenvoegsel',$_POST['infix'],PDO::PARAM_STR);
+        // We moeten de placeholders een waarde geven in de sql-query
+        $statement->bindValue(':Id', $_POST['Id'], PDO::PARAM_INT);
+        $statement->bindValue(':Voornaam', $_POST['voornaam'], PDO::PARAM_STR);
+        $statement->bindValue(':Tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
+        $statement->bindValue(':Achternaam', $_POST['lastname'], PDO::PARAM_STR);
 
+        // We gaan de query uitvoeren op de mysql-server
+        $statement->execute();
+
+        echo "Het record is geupdate";
+        header("Refresh:3; read.php");
+
+    } catch(PDOException $e) {
+        echo "Het record is niet geupdate";
+        header("Refresh:3; read.php");
+    }
     exit();
 }
+
 $sql = "SELECT * FROM persoon WHERE Id = :Id";
 
 
 $statement =$pdo->prepare($sql);
-$statement->bindValue(':Id', $_GET['id'], PDO::PARAM_INT);
+$statement->bindValue(':Id', $_GET['Id'], PDO::PARAM_INT);
 $statement->execute();
 $result = $statement->fetch(PDO::FETCH_OBJ);
 
@@ -65,6 +79,8 @@ $result = $statement->fetch(PDO::FETCH_OBJ);
           <label for="lastname">achternaam </label><br> 
           <input type="text" id="lastname" name="lastname" value="<?php echo $result->achternaam; ?>"> <br> 
           <br>
+
+          <input type="hidden" name="Id" value="<?php echo $result->Id; ?>">
           <input type="submit" value="Submit" class="button">
     </form>
 </body>
