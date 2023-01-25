@@ -80,7 +80,7 @@ $result = $statement->fetch(PDO::FETCH_OBJ);
 <body>
     <h1>PDO CRUD 1</h1>
 
-    <form action="create.php" method="post">
+    <form action="update.php" method="post">
     <label for="firstname">Voornaam:</label><br>
         <input type="text" name="firstname" id="firstname" value="<?php echo $result->voornaam; ?>"><br><br>
 
