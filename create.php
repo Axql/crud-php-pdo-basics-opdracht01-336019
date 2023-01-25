@@ -38,7 +38,7 @@ try {
 //maakt de query gereed met de prepare method 
 $statement = $pdo -> prepare($sql);
 
-$statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
+$statement->bindValue(':voornaam', $_POST['firstname'], PDO::PARAM_STR);
 $statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
 $statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
 $statement->bindValue(':telefoonNummer', $_POST['telefoonNummer'], PDO::PARAM_STR);

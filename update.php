@@ -3,14 +3,12 @@ require('config.php');
 
 $dsn = "mysql:host=$dbHost;dbname=$dbName;charset=UTF8";
 
-try{
+try {
     $pdo = new PDO($dsn, $dbUser, $dbPass);
-    if($pdo)
-    {
+    if ($pdo) {
         echo " er is verbinding gemaakt";
     }
-} catch (PDOException $e)
-{
+} catch (PDOException $e) {
     $e->getMessage();
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -18,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Maak een update query voor het updaten van een record
         $sql = "UPDATE Persoon
-                SET Voornaam = :Voornaam,
+                SET voornaam = :voornaam,
                     Tussenvoegsel = :Tussenvoegsel,
                     Achternaam = :Achternaam,
                     Voornaam = :telefoonNummer,
@@ -34,17 +32,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // We moeten de placeholders een waarde geven in de sql-query
         $statement->bindValue(':Id', $_POST['Id'], PDO::PARAM_INT);
-        $statement->bindValue(':Voornaam', $_POST['voornaam'], PDO::PARAM_STR);
-        $statement->bindValue(':Tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
-        $statement->bindValue(':Achternaam', $_POST['lastname'], PDO::PARAM_STR);
+        $statement->bindValue(':voornaam', $_POST['voornaam'], PDO::PARAM_STR);
+        $statement->bindValue(':tussenvoegsel', $_POST['infix'], PDO::PARAM_STR);
+        $statement->bindValue(':lastname', $_POST['lastname'], PDO::PARAM_STR);
+        $statement->bindValue(':telefoonNummer', $_POST['telefoonNummer'], PDO::PARAM_STR);
+        $statement->bindValue(':Straatnaam', $_POST['Straatnaam'], PDO::PARAM_STR);
+        $statement->bindValue(':HuisNummer', $_POST['HuisNummer'], PDO::PARAM_STR);
+        $statement->bindValue(':Woonplaats', $_POST['Woonplaats'], PDO::PARAM_STR);
+        $statement->bindValue(':Postcode', $_POST['Postcode'], PDO::PARAM_STR);
+        $statement->bindValue(':Landnaam', $_POST['Landnaam'], PDO::PARAM_STR);
 
         // We gaan de query uitvoeren op de mysql-server
         $statement->execute();
 
         echo "Het record is geupdate";
         header("Refresh:3; read.php");
-
-    } catch(PDOException $e) {
+    } catch (PDOException $e) {
         echo "Het record is niet geupdate";
         header("Refresh:3; read.php");
     }
@@ -54,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $sql = "SELECT * FROM persoon WHERE Id = :Id";
 
 
-$statement =$pdo->prepare($sql);
+$statement = $pdo->prepare($sql);
 $statement->bindValue(':Id', $_GET['Id'], PDO::PARAM_INT);
 $statement->execute();
 $result = $statement->fetch(PDO::FETCH_OBJ);
@@ -64,6 +67,7 @@ $result = $statement->fetch(PDO::FETCH_OBJ);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -72,40 +76,42 @@ $result = $statement->fetch(PDO::FETCH_OBJ);
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
 </head>
+
 <body>
     <h1>PDO CRUD 1</h1>
 
-    <form action="create.php" method="post"> 
-          <label for="firstname">voornaam </label> <br> 
-          <input type="text" id="voornaam" name="voornaam"> <br>
+    <form action="create.php" method="post">
+    <label for="firstname">Voornaam:</label><br>
+        <input type="text" name="firstname" id="firstname" value="<?php echo $result->voornaam; ?>"><br><br>
 
-          <label for="infix">tussenvoegsel </label><br>
-          <input type="text" id="infix" name="infix"> <br>
-          
-          <label for="lastname">achternaam </label><br> 
-          <input type="text" id="lastname" name="lastname"> <br> 
+        <label for="infix">tussenvoegsel </label><br>
+        <input type="text" id="infix" name="infix" value="<?php echo $result->tussenvoegsel; ?>"> <br>
 
-          <label for="telefoonNummer">telefoonNummer </label><br> 
-          <input type="text" id="telefoonNummer" name="telefoonNummer"> <br> 
+        <label for="lastname">achternaam </label><br>
+        <input type="text" id="lastname" name="lastname" value="<?php echo $result->achternaam; ?>"> <br>
 
-          <label for="Straatnaam">Straatnaam </label><br> 
-          <input type="text" id="Straatnaam" name="Straatnaam"> <br> 
+        <label for="telefoonNummer">telefoonNummer </label><br>
+        <input type="text" id="telefoonNummer" name="telefoonNummer" value="<?php echo $result->TelefoonNummer; ?>"> <br>
 
-          <label for="HuisNummer">HuisNummer </label><br> 
-          <input type="text" id="HuisNummer" name="HuisNummer"> <br> 
+        <label for="Straatnaam">Straatnaam </label><br>
+        <input type="text" id="Straatnaam" name="Straatnaam" value="<?php echo $result->StraatNaam; ?>"> <br>
 
-          <label for="Woonplaats">Woonplaats </label><br> 
-          <input type="text" id="Woonplaats" name="Woonplaats"> <br> 
+        <label for="HuisNummer">HuisNummer </label><br>
+        <input type="text" id="HuisNummer" name="HuisNummer" value="<?php echo $result->huisnummer; ?>"> <br>
 
-          <label for="Postcode">Postcode </label><br> 
-          <input type="text" id="Postcode" name="Postcode"> <br> 
+        <label for="Woonplaats">Woonplaats </label><br>
+        <input type="text" id="Woonplaats" name="Woonplaats" value="<?php echo $result->Woonplaats; ?>"> <br>
 
-          <label for="Landnaam">Landnaam </label><br> 
-          <input type="text" id="Landnaam" name="Landnaam"> <br> 
-          <br>
+        <label for="Postcode">Postcode </label><br>
+        <input type="text" id="Postcode" name="Postcode" value="<?php echo $result->Postcode; ?>"> <br>
 
-          <input type="hidden" name="Id" value="<?php echo $result->Id; ?>">
-          <input type="submit" value="Submit" class="button">
+        <label for="Landnaam">Landnaam </label><br>
+        <input type="text" id="Landnaam" name="Landnaam" value="<?php echo $result->Landnaam; ?>"> <br>
+        <br>
+
+        <input type="hidden" name="Id" value="<?php echo $result->Id; ?>">
+        <input type="submit" value="Submit" class="button">
     </form>
 </body>
+
 </html>
