@@ -12,7 +12,7 @@
     <h1>PDO CRUD 1</h1>
 
     <form action="create.php" method="post"> 
-          <label for="firstname">voornaam </label> <br> 
+          <label for="voornaam">voornaam </label> <br> 
           <input type="text" id="voornaam" name="voornaam"> <br>
 
           <label for="infix">tussenvoegsel </label><br>
