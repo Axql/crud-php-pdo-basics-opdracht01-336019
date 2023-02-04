@@ -16,15 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
         // Maak een update query voor het updaten van een record
         $sql = "UPDATE Persoon
-                SET voornaam = :voornaam,
-                    Tussenvoegsel = :Tussenvoegsel,
-                    Achternaam = :Achternaam,
-                    Voornaam = :telefoonNummer,
-                    Tussenvoegsel = :Straatnaam,
-                    Achternaam = :HuisNummer,
-                    Voornaam = :Woonplaats,
-                    Tussenvoegsel = :Postcode,
-                    Achternaam = :Landnaam
+                SET Id = :Id,
+                    voornaam = :voornaam,
+                    tussenvoegsel = :tussenvoegsel,
+                    Achternaam = :lastname,
+                    TelefoonNummer = :telefoonNummer,
+                    Straatnaam = :Straatnaam,
+                    huisNummer = :HuisNummer,
+                    Woonplaats = :Woonplaats,
+                    Postcode = :Postcode,
+                    Landnaam = :Landnaam
                 WHERE Id = :Id";
 
         // Roep de prepare-method aan van het PDO-object $pdo
@@ -42,14 +43,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $statement->bindValue(':Postcode', $_POST['Postcode'], PDO::PARAM_STR);
         $statement->bindValue(':Landnaam', $_POST['Landnaam'], PDO::PARAM_STR);
 
-        // We gaan de query uitvoeren op de mysql-server
+      
         $statement->execute();
 
         echo "Het record is geupdate";
         header("Refresh:3; read.php");
     } catch (PDOException $e) {
         echo "Het record is niet geupdate";
-        header("Refresh:3; read.php");
+        echo $e;
+        header("Refresh:20; read.php");
     }
     exit();
 }
@@ -81,8 +83,8 @@ $result = $statement->fetch(PDO::FETCH_OBJ);
     <h1>PDO CRUD 1</h1>
 
     <form action="update.php" method="post">
-    <label for="firstname">Voornaam:</label><br>
-        <input type="text" name="firstname" id="firstname" value="<?php echo $result->voornaam; ?>"><br><br>
+    <label for="voornaam">Voornaam:</label><br>
+        <input type="text" name="voornaam" id="voornaam" value="<?php echo $result->voornaam; ?>"><br><br>
 
         <label for="infix">tussenvoegsel </label><br>
         <input type="text" id="infix" name="infix" value="<?php echo $result->tussenvoegsel; ?>"> <br>
